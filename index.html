@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>エンドローラーカスタム（スプラふうン）</title>
+	<link rel="stylesheet" href="">
+	<script src="js/processing.min.js"></script> 
+</head>
+<body>
+	<p>エンドローラーカスタム ver.1</p>
+	<canvas id="processing" data-processing-sources="js/app.pde"></canvas><br />
+	<p>
+		スペースバー : ショット<br />
+		マウスクリック : 色変更<br />
+		c : 塗りリセット<br />
+	</p>
+	<div>
+		タイトルガゾウ:<input type="file" id="titleimg" /><br />
+		フッターガゾウ:<input type="file" id="footerimg" /><br />
+		<textarea id="article" cols=20 rows=5></textarea><br />
+		<button onclick="start()">マンメンミ！</button>
+	</div>
+	<div>
+		フォントデータは<a href="http://aramugi.com/" target=_blank>戸塚こだま</a>様の<a href="http://aramugi.com/?page_id=807" target=_blank>イカモドキ</a>をつかわせていただきました。<br />
+		ありがとうございます！<br />
+	</div>
+	<div>
+		<a href="http://processingjs.org/" target=_blank>processing.js</a>を使用しています。<br />
+		ソースコードはGithubにて公開していますのでお気軽にForkやPRください。
+	</div>
+	<div>
+		今後の実装予定（未定）<br />
+		<ul>
+			<li>インクのクオリティアップ</li>
+			<li>動画書き出し</li>
+			<li>画像書き出し</li>
+			<li>ソースコード整理</li>
+			<li>クイックボム実装</li>
+		</ul>
+		などなど・・・
+	</div>
+	<script>
+		document.getElementById('titleimg').addEventListener('change', function(e) {
+			var file = e.target.files[0];
+			if (!file.type.match('image.*')) {
+				return;
+			}
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				var processing = Processing.getInstanceById('processing');
+				processing.loadHeader(e.target.result);
+			}
+			reader.readAsDataURL(file);
+		}, false);
+		document.getElementById('footerimg').addEventListener('change', function(e) {
+			var file = e.target.files[0];
+			if (!file.type.match('image.*')) {
+				return;
+			}
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				var processing = Processing.getInstanceById('processing');
+				processing.loadFooter(e.target.result);
+			}
+			reader.readAsDataURL(file);
+		}, false);
+		function start() {
+			var processing = Processing.getInstanceById('processing');
+			processing.clearInk();
+
+			processing.setArticle(document.getElementById('article').value);
+			processing.startApplet();
+		}
+	</script>
+</body>
+</html>
