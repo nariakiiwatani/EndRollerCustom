@@ -1,3 +1,6 @@
+// Copyright (c) 2015 nariakiiwatani
+// Released under the MIT license
+// http://opensource.org/licenses/mit-license.php
 
 /* @pjs font="ikamodoki1_0.ttf"; */
 /* @pjs preload="images/header.png"; */
